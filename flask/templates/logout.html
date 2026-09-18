@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pollen Grain Prediction - Logout</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url("{{ url_for('static', filename='bg.png') }}") no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      text-align: center;
+    }
+
+    .header {
+      background-color: #c1d72e;
+      padding: 20px;
+      text-align: left;
+      font-size: 1.8em;
+      font-weight: bold;
+      color: white;
+    }
+
+    .nav {
+      position: absolute;
+      top: 25px;
+      right: 40px;
+    }
+
+    .nav a {
+      color: #f14b6b;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 40px auto;
+      padding: 30px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 24px;
+      color: #333;
+    }
+
+    .result {
+      margin-top: 30px;
+      font-size: 1.2em;
+      color: #222;
+    }
+
+    .prediction-highlight {
+      color: #fff;
+      background: #4caf50;
+      padding: 4px 12px;
+      border-radius: 5px;
+      margin-left: 8px;
+    }
+
+    .logout-btn {
+      margin-top: 24px;
+      padding: 10px 24px;
+      background: #f44336;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    .logout-btn:hover {r {
+      background: #d32f2f;ackground: #d32f2f;
+    }    }
+
+    .upload-icon {d (max-width: 768px) {
+      width: 90px;
+      height: 90px; font-size: 1.3em;
+    }   padding: 15px;
+  </style>
+</head>
+<body>.nav {
+  <div class="header">
+    A Pollen Grain Classification
+    <div class="nav">
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </div>dth: 90px;
+  </div>height: 90px;
+      }
+  <div class="container">
+    <h2>Pollen Grain Prediction Result</h2>
+    {% if prediction %}
+    <div class="result">
+      Predicted Class: <span class="prediction-highlight">{{ prediction }}</span>
+    </div>n Grain Classification
+    {% endif %}    <div class="nav">
+    <form method="GET" action="/">>About</a>
+      <button class="logout-btn" type="submit">Logout</button>
+    </form>
+  </div>
+</body>
+</html>lass="container">
+      Predicted Class: <span class="prediction-highlight">{{ prediction }}</span>
+    </div>
+    {% endif %}
+    <form method="GET" action="/">
+      <button class="logout-btn" type="submit">Logout</button>
+    </form>
+  </div>
+</body>
+</html>
