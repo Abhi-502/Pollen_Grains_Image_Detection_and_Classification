@@ -9,6 +9,15 @@ venv/
 env/
 ENV/
 
+# Extracted weights / large binaries
+*.h5
+*.keras
+
+# Uploaded user images (preserve directory)
+flask/static/uploads/*
+!flask/static/uploads/readme.me
+!flask/static/uploads/.gitkeep
+
 # macOS system files
 .DS_Store
 .AppleDouble
