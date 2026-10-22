@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Pollen Grain Prediction</title>
-  <link rel="stylesheet" href="static/css/main.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
 </head>
 <body>
@@ -15,9 +15,9 @@
             </span>
             <div class="logo">POLLEN GRAIN CLASSIFICATION</div>
             <ul class="nav-links">
-              <li><a href="/">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/#about">About</a></li>
+                <li><a href="/#contact">Contact</a></li>
                 <li><a href="/predict-page">Predict</a></li>
             </ul>
         </nav>
@@ -26,8 +26,8 @@
                 <i class="fas fa-times"></i> Cancel
             </span>
             <a href="/" onclick="closeSidebar()"><i class="fas fa-home"></i> Home</a>
-            <a href="#about" onclick="closeSidebar()"><i class="fas fa-user"></i> About</a>
-            <a href="#contact" onclick="closeSidebar()"><i class="fas fa-envelope"></i> Contact</a>
+            <a href="/#about" onclick="closeSidebar()"><i class="fas fa-user"></i> About</a>
+            <a href="/#contact" onclick="closeSidebar()"><i class="fas fa-envelope"></i> Contact</a>
             <a href="/predict-page" onclick="closeSidebar()"><i class="fas fa-folder-open"></i> Predict</a>
         </div>
     </header>
@@ -38,17 +38,52 @@
         <label for="file">Upload Pollen Grain Image:</label>
         <input type="file" name="file" id="file" accept="image/*" required onchange="previewImage(event)">
       </div>
-      <button type="submit">Predict</button>
+      <button type="submit"><i class="fas fa-microscope"></i> Classify Image</button>
     </form>
-    <img id="preview" class="img-preview" />
+
+    {% if error %}
+    <div class="alert-error">
+      <i class="fas fa-exclamation-triangle"></i> {{ error }}
+    </div>
+    {% endif %}
+
+    {% if img_path %}
+    <img id="preview" class="img-preview" src="{{ url_for('static', filename=img_path.replace('static/', '')) }}" style="display: block;" alt="Uploaded Pollen Grain" />
+    {% else %}
+    <img id="preview" class="img-preview" alt="Preview" />
+    {% endif %}
+
     {% if prediction %}
-    <div class="result">
-      Predicted Class: <span class="prediction-highlight">{{ prediction }}</span>
+    <div class="prediction-card">
+      <div class="result">
+        Predicted Class: <span class="prediction-highlight">{{ prediction }}</span>
+        {% if confidence %}
+        <span class="confidence-badge">{{ confidence }}% match</span>
+        {% endif %}
+      </div>
+
+      {% if top_predictions %}
+      <div class="top-predictions">
+        <h4><i class="fas fa-chart-bar"></i> Top Candidates</h4>
+        {% for pred in top_predictions %}
+        <div class="pred-item">
+          <div class="pred-item-header">
+            <span>{{ pred.class }}</span>
+            <span><strong>{{ pred.confidence }}%</strong></span>
+          </div>
+          <div class="pred-bar-bg">
+            <div class="pred-bar-fill" style="width: {{ pred.confidence }}%;"></div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
     </div>
     {% endif %}
   </div>
-    <div class="about-section" id="about">
-        <h2>ABOUT US</h2>
+
+  <div class="about-section" id="about">
+      <h2>ABOUT US</h2>
       <p style="text-align: start; color:black">
           <strong>Pollen Grain Classification</strong> is an AI-powered image prediction platform that helps scientists, educators, and ecologists identify pollen types using deep learning models. Built with Flask and TensorFlow, this web app bridges environmental biology and machine learning to streamline research and data gathering.
       </p>
@@ -57,43 +92,42 @@
       </p>
 
       <h3 style="margin-top: 25px;">Project Details</h3>
-      <ul style="color: black; padding-left: 20px;  " type="none">
+      <ul style="color: black; padding-left: 20px;" type="none">
         <li>Email ID: <a href="mailto:23091a0502@rgmcet.edu.in">23091a0502@rgmcet.edu.in</a></li>
-          <li><strong>Team Members:</strong> </li>
-          <li> Illuri Abhi</li>
-          <li> Gandragoli Upendra</li>
-          <li> Pitta Murali</li>
-          <li> Mukesh Kumar</li>
-          </ul>
+        <li><strong>Team Members:</strong> </li>
+        <li> Illuri Abhi</li>
+        <li> Gandragoli Upendra</li>
+        <li> Pitta Murali</li>
+        <li> Mukesh Kumar</li>
+      </ul>
   </div> 
+
   <div class="contact-section" id="contact" style="text-align: justify; color:white">
     <h2>CONTACT</h2>
     <p>We’d love to hear from you — whether you’re a researcher, student, or just curious about pollen classification.</p>
     
     <ul class="contact-details">
-        <li><i class="fas fa-envelope"></i> Email: <a href="mailto:illuri.abhi@gmail.com">illuriabhi8247@gmail.com</a></li>
-        <li><i class="fas fa-github"></i> GitHub: <a href="https://github.com/illuriabhi" target="_blank">github.com/illuriabhi</a></li>
+        <li><i class="fas fa-envelope"></i> Email: <a href="mailto:illuriabhi8247@gmail.com">illuriabhi8247@gmail.com</a></li>
+        <li><i class="fas fa-github"></i> GitHub: <a href="https://github.com/Abhi-502" target="_blank">github.com/Abhi-502</a></li>
     </ul>
 
     <p>If you're interested in collaborating, contributing datasets, or deploying your own version, feel free to reach out!</p>
-</div>
-</div>
+  </div>
 
   <footer>
-    <p>&copy; 2025 Pollen Grain Classification. All rights reserved.</p>
+    <p>&copy; 2025-2026 Pollen Grain Classification. All rights reserved.</p>
   </footer>
 
   <script>
-  
-function previewImage(event) {
-    const preview = document.getElementById('preview');
-    const file = event.target.files[0];
-    if (file) {
-    preview.src = URL.createObjectURL(file);
-    preview.style.display = 'block';
+    function previewImage(event) {
+        const preview = document.getElementById('preview');
+        const file = event.target.files[0];
+        if (file) {
+            preview.src = URL.createObjectURL(file);
+            preview.style.display = 'block';
+        }
     }
-}
-</script>
-<script src="static/js/main.js"></script>
+  </script>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
