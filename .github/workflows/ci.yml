@@ -1,0 +1,31 @@
+name: CI - Lint & Validate
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.10"
+
+    - name: Check syntax and compilation
+      run: |
+        python -m py_compile flask/app.py
+
+    - name: Validate file structure
+      run: |
+        test -f flask/app.py
+        test -f flask/model1.zip
+        test -f requirements.txt
+        test -f Dockerfile
